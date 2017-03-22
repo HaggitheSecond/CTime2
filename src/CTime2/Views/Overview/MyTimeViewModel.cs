@@ -7,6 +7,7 @@ using CTime2.Core.Data;
 using CTime2.Core.Events;
 using CTime2.Core.Services.ApplicationState;
 using CTime2.Core.Services.CTime;
+using CTime2.Core.Services.Statistics;
 using CTime2.Strings;
 using CTime2.Views.About;
 using CTime2.Views.YourTimes;
@@ -25,18 +26,16 @@ namespace CTime2.Views.Overview
         private readonly IApplicationStateService _applicationStateService;
         private readonly ICTimeService _cTimeService;
         private readonly INavigationService _navigationService;
+        private readonly IStatisticsService _statisticsService;
 
         private readonly Timer _timer;
-
-        private DateTime _timerStartNow;
-        private TimeSpan _timerTimeForDay;
+        
+        private Time _time;
 
         private TimeSpan _currentTime;
         private TimeSpan? _overTime;
-
         private TimeSpan? _lunchBreakTime;
-        private DateTime _lunchBreakStart;
-        private DateTime _preferedLunchBreakEnd;
+        private DateTime? _preferedLunchBreakEnd;
 
         public TimeSpan CurrentTime
         {
@@ -56,7 +55,7 @@ namespace CTime2.Views.Overview
             set { this.RaiseAndSetIfChanged(ref this._lunchBreakTime, value); }
         }
         
-        public DateTime PreferedLunchBreakEnd
+        public DateTime? PreferedLunchBreakEnd
         {
             get { return this._preferedLunchBreakEnd; }
             set { this.RaiseAndSetIfChanged(ref this._preferedLunchBreakEnd, value); }
@@ -66,16 +65,18 @@ namespace CTime2.Views.Overview
 
         public UwCoreCommand<Unit> GoToMyTimes { get; }
 
-        public MyTimeViewModel(IApplicationStateService applicationStateService, ICTimeService cTimeService, IEventAggregator eventAggregator, INavigationService navigationService)
+        public MyTimeViewModel(IApplicationStateService applicationStateService, ICTimeService cTimeService, IEventAggregator eventAggregator, INavigationService navigationService, IStatisticsService statisticsService)
         {
             Guard.NotNull(applicationStateService, nameof(applicationStateService));
             Guard.NotNull(cTimeService, nameof(cTimeService));
             Guard.NotNull(eventAggregator, nameof(eventAggregator));
             Guard.NotNull(navigationService, nameof(navigationService));
+            Guard.NotNull(statisticsService, nameof(statisticsService));
 
             this._applicationStateService = applicationStateService;
             this._cTimeService = cTimeService;
             this._navigationService = navigationService;
+            this._statisticsService = statisticsService;
 
             this._timer = new Timer(this.Tick, null, TimeSpan.FromMilliseconds(-1), TimeSpan.FromMilliseconds(-1));
 
@@ -100,71 +101,19 @@ namespace CTime2.Views.Overview
 
         private async Task RefreshTimerImpl()
         {
-            var currentTime = await this._cTimeService.GetCurrentTime(this._applicationStateService.GetCurrentUser().Id);
+            this._time = await this._cTimeService.GetCurrentTime(this._applicationStateService.GetCurrentUser().Id);
 
-            this._timerStartNow = DateTime.Now;
+            this.UpdateTimes();
 
-            var timeToAdd = currentTime != null && currentTime.State.IsEntered()
-                ? this._timerStartNow - (currentTime.ClockInTime ?? this._timerStartNow)
-                : TimeSpan.Zero;
-
-            //Make sure we never count down, always up
-            if (timeToAdd < TimeSpan.Zero)
-                timeToAdd = TimeSpan.Zero;
-
-            //Only take the timeToday if the time is either
-            // - from today
-            // - or from yesterday, but still checked-in
-            var timeToday = currentTime?.Day == DateTime.Today || (currentTime?.State.IsEntered() ?? false)
-                ? currentTime.Hours 
-                : TimeSpan.Zero;
-
-            this.SetTime(this._timerTimeForDay = timeToday + timeToAdd);
-
-            if (this.IsLunchBreak(currentTime))
+            var statistic = this._statisticsService.CalculateCurrentTime(this._time);
+            if (statistic.IsStillRunning)
             {
-                this.LunchBreakTime = TimeSpan.MinValue;
-
-                // this will result in the timer starting between 00:00 and 00:59 due to server rounding down to the full minute
-
-                this._lunchBreakStart = currentTime.ClockOutTime.Value;
-
-                var preferedBreakLenght = this._applicationStateService.GetWorkDayBreak();
-
-                this.PreferedLunchBreakEnd = this._lunchBreakStart + preferedBreakLenght;
-
-                // making sure the timer is started
-
                 this._timer.Change(TimeSpan.Zero, TimeSpan.FromMilliseconds(100));
             }
             else
             {
-                if (this.LunchBreakTime != null)
-                {
-                    this.LunchBreakTime = null;
-                    this._lunchBreakStart = DateTime.MinValue;
-                }
-
-                if (currentTime != null && currentTime.State.IsEntered())
-                {
-                    this._timer.Change(TimeSpan.Zero, TimeSpan.FromMilliseconds(100));
-                }
-                else
-                {
-                    this._timer.Change(TimeSpan.FromMilliseconds(-1), TimeSpan.FromMilliseconds(-1));
-                }
+                this._timer.Change(TimeSpan.FromMilliseconds(-1), TimeSpan.FromMilliseconds(-1));
             }
-        }
-
-        private bool IsLunchBreak(Time currentTime)
-        {
-            if (currentTime == null || currentTime.State != TimeState.Left || currentTime.ClockOutTime.HasValue == false)
-                return false;
-
-            if (currentTime.ClockOutTime.Value < DateTime.Parse("11:00") || currentTime.ClockOutTime.Value > DateTime.Parse("14:30"))
-                return false;
-
-            return true;
         }
 
         private Task GoToMyTimesImpl()
@@ -179,39 +128,17 @@ namespace CTime2.Views.Overview
 
         private void Tick(object state)
         {
-            Execute.OnUIThread(() =>
-            {
-                this.SetTime(this._timerTimeForDay + (DateTime.Now - this._timerStartNow));
-            });
+            Execute.OnUIThread(this.UpdateTimes);
         }
 
-        private void SetTime(TimeSpan time)
+        private void UpdateTimes()
         {
-            if (this.LunchBreakTime != null && DateTime.Now > DateTime.Parse("14:30"))
-            {
-                this.LunchBreakTime = null;
-                this._lunchBreakStart = DateTime.MinValue;
-            }
+            var statistic = this._statisticsService.CalculateCurrentTime(this._time);
 
-            if (this.LunchBreakTime != null)
-            {
-                this.LunchBreakTime = DateTime.Now - this._lunchBreakStart;
-            }
-            else
-            {
-                var workTime = this._applicationStateService.GetWorkDayHours();
-
-                if (time - workTime > TimeSpan.FromSeconds(1))
-                {
-                    this.CurrentTime = workTime;
-                    this.OverTime = time - workTime;
-                }
-                else
-                {
-                    this.CurrentTime = time;
-                    this.OverTime = null;
-                }
-            }
+            this.CurrentTime = statistic.WorkTime;
+            this.LunchBreakTime = statistic.CurrentBreak?.BreakTime;
+            this.OverTime = statistic.OverTime;
+            this.PreferedLunchBreakEnd = statistic.CurrentBreak?.PreferredBreakTimeEnd;
         }
 
         async Task IHandleWithTask<ApplicationResumed>.Handle(ApplicationResumed message)

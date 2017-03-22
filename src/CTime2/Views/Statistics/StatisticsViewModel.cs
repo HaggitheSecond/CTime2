@@ -18,6 +18,7 @@ using System.Text;
 using CTime2.Core.Data;
 using CTime2.Core.Services.Sharing;
 using CTime2.Core.Services.Statistics;
+using CTime2.Core.Services.Tile;
 using CTime2.Views.Statistics.Details;
 using UwCore.Services.Navigation;
 
@@ -32,6 +33,7 @@ namespace CTime2.Views.Statistics
         private readonly INavigationService _navigationService;
         private readonly ISharingService _sharingService;
         private readonly IStatisticsService _statisticsService;
+        private readonly ITileService _tileService;
 
         private DateTimeOffset _startDate;
         private DateTimeOffset _endDate;
@@ -65,7 +67,7 @@ namespace CTime2.Views.Statistics
         #endregion
 
         #region Constructors
-        public StatisticsViewModel(IApplicationStateService applicationStateService, ICTimeService cTimeService, IDialogService dialogService, INavigationService navigationService, ISharingService sharingService, IStatisticsService statisticsService)
+        public StatisticsViewModel(IApplicationStateService applicationStateService, ICTimeService cTimeService, IDialogService dialogService, INavigationService navigationService, ISharingService sharingService, IStatisticsService statisticsService, ITileService tileService)
         {
             Guard.NotNull(applicationStateService, nameof(applicationStateService));
             Guard.NotNull(cTimeService, nameof(cTimeService));
@@ -73,6 +75,7 @@ namespace CTime2.Views.Statistics
             Guard.NotNull(navigationService, nameof(navigationService));
             Guard.NotNull(sharingService, nameof(sharingService));
             Guard.NotNull(statisticsService, nameof(statisticsService));
+            Guard.NotNull(tileService, nameof(tileService));
 
             this._applicationStateService = applicationStateService;
             this._cTimeService = cTimeService;
@@ -80,6 +83,7 @@ namespace CTime2.Views.Statistics
             this._navigationService = navigationService;
             this._sharingService = sharingService;
             this._statisticsService = statisticsService;
+            this._tileService = tileService;
 
             this.LoadStatistics = UwCoreCommand.Create(this.LoadStatisticsImpl)
                 .ShowLoadingOverlay(CTime2Resources.Get("Loading.Statistics"))
@@ -136,20 +140,23 @@ namespace CTime2.Views.Statistics
             var times = await this._cTimeService.GetTimes(this._applicationStateService.GetCurrentUser().Id, this.StartDate.LocalDateTime, this.EndDate.LocalDateTime);
 
             var allTimes = TimesByDay.Create(times).ToList();
-
-            var timeToday = allTimes.FirstOrDefault(f => f.Day.Date == DateTime.Today);
-
+            
             //If "IncludeToday" is NULL, we have to set it to either true or false
             //NULL is the default value when the first time the LoadStatistics command is executed
             if (this.IncludeToday.HasValue == false)
             {
-                var completedTimesToday = timeToday?.Times.Count(f => f.ClockInTime != null && f.ClockOutTime != null);
-
-                var hasAtLeastTwoCompletedTimesToday = completedTimesToday.HasValue && completedTimesToday.Value >= 2;
-                var lastTimeIsCompleted = timeToday?.Times.OrderByDescending(f => f.ClockInTime).FirstOrDefault()?.ClockOutTime != null;
-
-                this.IncludeToday = hasAtLeastTwoCompletedTimesToday && lastTimeIsCompleted;
+                this.IncludeToday = this._statisticsService.ShouldIncludeToday(allTimes);
             }
+
+            #region Update ITileService
+            this._tileService.StartDateForStatistics = this.StartDate.LocalDateTime;
+            this._tileService.EndDateForStatistics = this.EndDate.LocalDateTime;
+            this._tileService.IncludeTodayForStatistics = this.IncludeToday.Value;
+
+#pragma warning disable 4014
+            this._tileService.UpdateLiveTileAsync();
+#pragma warning restore 4014
+            #endregion
 
             var timesByDay = allTimes
                 .Where(f => f.Day.Date != DateTime.Today || this.IncludeToday.Value)
@@ -169,7 +176,7 @@ namespace CTime2.Views.Statistics
             var averageBreakTime = this._statisticsService.CalculateAverageBreakTime(timesByDay, onlyWorkDays: true, onlyDaysWithBreak: false);
             var averageBreakTimeOnDaysWithBreak = this._statisticsService.CalculateAverageBreakTime(timesByDay, onlyWorkDays: true, onlyDaysWithBreak: true);
             var overtime = this._statisticsService.CalculateOverTime(timesByDay, onlyWorkDays:false);
-            var workEnd = this._statisticsService.CalculateTodaysWorkEnd(timesByDay, onlyWorkDays:false);
+            var workEnd = this._statisticsService.CalculateTodaysWorkEnd(allTimes.FirstOrDefault(f => f.Day == DateTime.Today), timesByDay, onlyWorkDays:false);
             
             var statisticItems = new List<StatisticItem>
             {

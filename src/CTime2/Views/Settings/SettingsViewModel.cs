@@ -5,6 +5,7 @@ using System.Reactive.Linq;
 using System.Reactive.Subjects;
 using System.Reactive.Threading.Tasks;
 using System.Threading.Tasks;
+using Windows.UI.Notifications;
 using Windows.UI.Xaml;
 using CTime2.Core.Services.ApplicationState;
 using CTime2.Core.Services.Biometrics;
@@ -16,6 +17,7 @@ using UwCore.Application;
 using UwCore.Common;
 using UwCore.Services.ApplicationState;
 using CTime2.Extensions;
+using Microsoft.Toolkit.Uwp.Notifications;
 
 namespace CTime2.Views.Settings
 {
@@ -30,6 +32,9 @@ namespace CTime2.Views.Settings
         private TimeSpan _selectedWorkTime;
         private ReactiveList<TimeSpan> _breakTimes;
         private TimeSpan _selectedBreakTime;
+        private ReactiveList<TimeSpan> _breakTimeAreas;
+        private TimeSpan _breakTimeBegin;
+        private TimeSpan _breakTimeEnd;
         private ReactiveList<DayOfWeek> _workDays;
         private ElementTheme _theme;
         private bool _includeContactInfoInErrorReports;
@@ -57,6 +62,24 @@ namespace CTime2.Views.Settings
         {
             get { return this._selectedBreakTime; }
             set { this.RaiseAndSetIfChanged(ref this._selectedBreakTime, value); }
+        }
+
+        public ReactiveList<TimeSpan> BreakTimeAreas
+        {
+            get { return this._breakTimeAreas; }
+            set { this.RaiseAndSetIfChanged(ref this._breakTimeAreas, value); }
+        }
+
+        public TimeSpan BreakTimeBegin
+        {
+            get { return this._breakTimeBegin; }
+            set { this.RaiseAndSetIfChanged(ref this._breakTimeBegin, value); }
+        }
+
+        public TimeSpan BreakTimeEnd
+        {
+            get { return this._breakTimeEnd; }
+            set { this.RaiseAndSetIfChanged(ref this._breakTimeEnd, value); }
         }
 
         public ReactiveList<DayOfWeek> WorkDays
@@ -109,6 +132,8 @@ namespace CTime2.Views.Settings
             this.Theme = this._applicationStateService.GetApplicationTheme();
             this.SelectedWorkTime = this._applicationStateService.GetWorkDayHours();
             this.SelectedBreakTime = this._applicationStateService.GetWorkDayBreak();
+            this.BreakTimeBegin = this._applicationStateService.GetBreakTimeBegin();
+            this.BreakTimeEnd = this._applicationStateService.GetBreakTimeEnd();
             this.WorkDays = new ReactiveList<DayOfWeek>(this._applicationStateService.GetWorkDays());
             this.CompanyId = this._applicationStateService.GetCompanyId();
             this.IncludeContactInfoInErrorReports = this._applicationStateService.GetIncludeContactInfoInErrorReports();
@@ -130,6 +155,18 @@ namespace CTime2.Views.Settings
                 .Subscribe(breakTime =>
                 {
                     this._applicationStateService.SetWorkDayBreak(breakTime);
+                });
+
+            this.WhenAnyValue(f => f.BreakTimeBegin)
+                .Subscribe(breakTimeBegin =>
+                {
+                    this._applicationStateService.SetBreakTimeBegin(breakTimeBegin);
+                });
+
+            this.WhenAnyValue(f => f.BreakTimeEnd)
+                .Subscribe(breakTimeEnd =>
+                {
+                    this._applicationStateService.SetBreakTimeEnd(breakTimeEnd);
                 });
 
             this.WhenAnyValue(f => f.CompanyId)
@@ -162,8 +199,12 @@ namespace CTime2.Views.Settings
             this.BreakTimes = new ReactiveList<TimeSpan>(Enumerable
                 .Repeat((object)null, 4 * 24)
                 .Select((_, i) => TimeSpan.FromHours(0.25 * i)));
+
+            this.BreakTimeAreas = new ReactiveList<TimeSpan>(Enumerable
+                .Repeat((object)null, 4 * 24)
+                .Select((_, i) => TimeSpan.FromHours(0.25 * i)));
         }
-        
+
         private async Task RememberLoginImpl()
         {
             var user = this._applicationStateService.GetCurrentUser();

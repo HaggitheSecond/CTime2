@@ -91,6 +91,8 @@
   <ItemGroup>
     <!-- A reference to the entire .Net Framework and Windows SDK are automatically included -->
     <None Include="project.json" />
+    <Content Include="Views\UpdateNotes\German.md" />
+    <Content Include="Views\UpdateNotes\English.md" />
     <PRIResource Include="Strings\en-US\Resources.resw" />
     <PRIResource Include="Strings\de-DE\Resources.resw" />
   </ItemGroup>
@@ -112,6 +114,7 @@
     <Compile Include="Converter\HoursToTimeStringConverter.cs" />
     <Compile Include="Converter\MinutesToTimeStringConverter.cs" />
     <Compile Include="Converter\NumberAboveConverter.cs" />
+    <Compile Include="Converter\TimeSpanToTimeStringConverter.cs" />
     <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="Views\About\MoreInfoTextFromResources.cs" />
     <Compile Include="Views\About\ThisAppIsOpenSourceTextFromResourceses.cs" />
@@ -382,6 +385,10 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\CTime2.LiveTileService\CTime2.LiveTileService.csproj">
+      <Project>{b2811e7c-362e-447e-889f-4fc4ace40abd}</Project>
+      <Name>CTime2.LiveTileService</Name>
+    </ProjectReference>
     <ProjectReference Include="..\CTime2.Core\CTime2.Core.csproj">
       <Project>{76ad71f3-cee3-4714-b88f-fea50a787887}</Project>
       <Name>CTime2.Core</Name>

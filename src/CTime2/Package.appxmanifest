@@ -27,6 +27,11 @@
         <uap:SplashScreen Image="Assets\SplashScreen.png" />
       </uap:VisualElements>
       <Extensions>
+        <Extension Category="windows.backgroundTasks" EntryPoint="CTime2.LiveTileService.CTime2LiveTileService">
+          <BackgroundTasks>
+            <Task Type="timer" />
+          </BackgroundTasks>
+        </Extension>
         <uap:Extension Category="windows.appService" EntryPoint="CTime2.VoiceCommandService.CTime2VoiceCommandService">
           <uap:AppService Name="CTime2VoiceCommandService" />
         </uap:Extension>

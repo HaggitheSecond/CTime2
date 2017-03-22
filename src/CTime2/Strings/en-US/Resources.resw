@@ -307,9 +307,6 @@ This app may not work completely.</value>
   <data name="Loading.LoadCharts" xml:space="preserve">
     <value>Loading diagram...</value>
   </data>
-  <data name="Statistics.WorkTimeDataPointFormat" xml:space="preserve">
-    <value>{0} h {1} m</value>
-  </data>
   <data name="StatisticItemHasDetailsIcon.[using:Windows.UI.Xaml.Controls]ToolTipService.ToolTip" xml:space="preserve">
     <value>There is a diagram for this statistic.</value>
   </data>
@@ -392,18 +389,6 @@ You just have to authenticate yourself.</value>
   <data name="Loading.CurrentTime" xml:space="preserve">
     <value>Loading time...</value>
   </data>
-  <data name="UpdateToNewCTimeApiContent1Run.Text" xml:space="preserve">
-    <value>This app now uses the new c-time API.</value>
-  </data>
-  <data name="UpdateToNewCTimeApiContent2Run.Text" xml:space="preserve">
-    <value>That means the login is more secure now, your password will not be sent to the server.</value>
-  </data>
-  <data name="UpdateToNewCTimeApiContent3Run.Text" xml:space="preserve">
-    <value>Also, the attendance list will load much faster.</value>
-  </data>
-  <data name="UpdateToNewCTimeApiHeaderRun.Text" xml:space="preserve">
-    <value>Update to use the new c-time API!</value>
-  </data>
   <data name="MyTimes.TitleFormat" xml:space="preserve">
     <value>My times from {0:d} to {1:d}</value>
   </data>
@@ -479,39 +464,6 @@ Your Company-ID looks somewhat like this: A1B2C3D4-A1B2-A1B2-A1B2-A1B2C3D4F5G6</
   </data>
   <data name="CompanyIdSettingsItem.Description" xml:space="preserve">
     <value>Company-ID</value>
-  </data>
-  <data name="DatesContent1Run.Text" xml:space="preserve">
-    <value>In your times and the statistics the start- and enddate will now be remembered.</value>
-  </data>
-  <data name="DatesHeaderRun.Text" xml:space="preserve">
-    <value>Start- and enddate</value>
-  </data>
-  <data name="AttendanceListGroupsContent1Run.Text" xml:space="preserve">
-    <value>To get a better overview in the attendance list, you can now create your own groups of employees.</value>
-  </data>
-  <data name="AttendanceListGroupsHeaderRun.Text" xml:space="preserve">
-    <value>Custom employee groups!</value>
-  </data>
-  <data name="ShareContent1Run.Text" xml:space="preserve">
-    <value>Some information from this app can now be shared with other apps.</value>
-  </data>
-  <data name="ShareContent2Run.Text" xml:space="preserve">
-    <value>You can use this to send your times per email for example.</value>
-  </data>
-  <data name="ShareHeaderRun.Text" xml:space="preserve">
-    <value>Share!</value>
-  </data>
-  <data name="CrashContent1Run.Text" xml:space="preserve">
-    <value>This app was crashing on some systems. It should be fixed now.</value>
-  </data>
-  <data name="CrashHeaderRun.Text" xml:space="preserve">
-    <value>Crash at startup</value>
-  </data>
-  <data name="PatchNotesAgainContent1Run.Text" xml:space="preserve">
-    <value>In the area "About" you can see these patchnotes again.</value>
-  </data>
-  <data name="PatchNotesAgainHeaderRun.Text" xml:space="preserve">
-    <value>See patchnotes again</value>
   </data>
   <data name="AnalyticsSettingsGroup.Header" xml:space="preserve">
     <value>Analytics</value>
@@ -595,7 +547,7 @@ This data will only be used to contact you, it will not be given to a third part
     <value>https://github.com/haefele</value>
   </data>
   <data name="PrivacyPolicyUrl" xml:space="preserve">
-    <value>https://xemio.net/c-time/privacy%20policy/en-US.html</value>
+    <value>https://github.com/haefele/CTime2/blob/master/privacy%20policy/en-US.md</value>
   </data>
   <data name="TwitterUrl" xml:space="preserve">
     <value>https://twitter.com/haefeledev</value>
@@ -621,38 +573,14 @@ This data will only be used to contact you, it will not be given to a third part
   <data name="ZoomAppBarButton.Label" xml:space="preserve">
     <value>zoom</value>
   </data>
-  <data name="ExtendedAttendanceListContent1Run.Text" xml:space="preserve">
-    <value>The attendance list now shows how someone is checked in or checked out.</value>
+  <data name="BreakTimeEndTimePart1TextBlock.Text" xml:space="preserve">
+    <value>Until</value>
   </data>
-  <data name="ExtendedAttendanceListContent2Run.Text" xml:space="preserve">
-    <value>You can see it now, if someone is checked-in in home-office.</value>
+  <data name="BreakTimeEndTimePart2TextBlock.Text" xml:space="preserve">
+    <value />
   </data>
-  <data name="ExtendedAttendanceListContent3Run.Text" xml:space="preserve">
-    <value>Also, theres a new search feature in the attendance list.</value>
-  </data>
-  <data name="ExtendedAttendanceListHeaderRun.Text" xml:space="preserve">
-    <value>Extended attendance list</value>
-  </data>
-  <data name="ReworkedAboutAndSettingsContent1Run.Text" xml:space="preserve">
-    <value>The about area was completely reworked as well.</value>
-  </data>
-  <data name="ReworkedAboutAndSettingsContent2Run.Text" xml:space="preserve">
-    <value>For example, you can now give feedback using the feedback hub.</value>
-  </data>
-  <data name="ReworkedAboutAndSettingsContent3Run.Text" xml:space="preserve">
-    <value>In the settings is a new setting for analytics.</value>
-  </data>
-  <data name="ReworkedAboutAndSettingsHeaderRun.Text" xml:space="preserve">
-    <value>About and settings</value>
-  </data>
-  <data name="ReworkedDiagramsContent1Run.Text" xml:space="preserve">
-    <value>The diagrams in the statistics have are completely reworked.</value>
-  </data>
-  <data name="ReworkedDiagramsContent2Run.Text" xml:space="preserve">
-    <value>They look much more modern now, and have a couple of new features.</value>
-  </data>
-  <data name="ReworkedDiagramsHeaderRun.Text" xml:space="preserve">
-    <value>New diagrams</value>
+  <data name="BreakTimeTextBlock.Text" xml:space="preserve">
+    <value>Break:</value>
   </data>
   <data name="BreakTimeEndTimePart1TextBlock.Text" xml:space="preserve">
     <value>Until</value>
@@ -689,5 +617,14 @@ This data will only be used to contact you, it will not be given to a third part
   </data>
   <data name="Statistics.AverageBreakTimeSubTitle" xml:space="preserve">
     <value>Only days with break</value>
+  </data>
+  <data name="BreakTimeAreaSettingsItem.Description" xml:space="preserve">
+    <value>Break time</value>
+  </data>
+  <data name="UntilTextBlock.Text" xml:space="preserve">
+    <value>until</value>
+  </data>
+  <data name="UpdateNotesFileName" xml:space="preserve">
+    <value>English</value>
   </data>
 </root>

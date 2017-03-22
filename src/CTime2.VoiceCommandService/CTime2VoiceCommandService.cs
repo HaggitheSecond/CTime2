@@ -6,6 +6,7 @@ using Windows.ApplicationModel.VoiceCommands;
 using Caliburn.Micro;
 using CTime2.Core.Data;
 using CTime2.Core.Services.CTime;
+using CTime2.Core.Services.CTime.RequestCache;
 using CTime2.Core.Services.GeoLocation;
 using CTime2.VoiceCommandService.Strings;
 using UwCore.Logging;
@@ -47,7 +48,7 @@ namespace CTime2.VoiceCommandService
 
                     var applicationStateService = new ApplicationStateService();
                     await applicationStateService.RestoreStateAsync();
-                    var cTimeService = new CTimeService(new EventAggregator(), applicationStateService, new GeoLocationService());
+                    var cTimeService = new CTimeService(new NullCTimeRequestCache(), new EventAggregator(), applicationStateService, new GeoLocationService());
 
                     var stampHelper = new CTimeStampHelper(applicationStateService, cTimeService);
                     var stampHelperCallback = new CTimeStampHelperCallback(

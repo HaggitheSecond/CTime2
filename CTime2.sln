@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26206.0
+VisualStudioVersion = 15.0.26228.4
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CTime2", "src\CTime2\CTime2.csproj", "{2A50419D-14AA-454F-BC31-A6546F3FC039}"
 EndProject
@@ -15,6 +15,26 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "privacy policy", "privacy p
 	ProjectSection(SolutionItems) = preProject
 		privacy policy\de-DE.md = privacy policy\de-DE.md
 		privacy policy\en-US.md = privacy policy\en-US.md
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CTime2.LiveTileService", "src\CTime2.LiveTileService\CTime2.LiveTileService.csproj", "{B2811E7C-362E-447E-889F-4FC4ACE40ABD}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "scripts", "scripts", "{BD7A0E77-C5AE-4ACC-9738-BE53342977FE}"
+	ProjectSection(SolutionItems) = preProject
+		scripts\build.cake = scripts\build.cake
+		scripts\build.ps1 = scripts\build.ps1
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "changelog", "changelog", "{CB275C9C-1B95-4975-B9DB-0DCB2F85FA55}"
+	ProjectSection(SolutionItems) = preProject
+		changelog\de-DE.md = changelog\de-DE.md
+		changelog\en-US.md = changelog\en-US.md
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "solution items", "solution items", "{72EE1CB6-A730-4F92-901C-5CAC74E9575F}"
+	ProjectSection(SolutionItems) = preProject
+		appveyor.yml = appveyor.yml
+		README.md = README.md
 	EndProjectSection
 EndProject
 Global
@@ -85,6 +105,22 @@ Global
 		{76AD71F3-CEE3-4714-B88F-FEA50A787887}.Release|x64.Build.0 = Release|x64
 		{76AD71F3-CEE3-4714-B88F-FEA50A787887}.Release|x86.ActiveCfg = Release|x86
 		{76AD71F3-CEE3-4714-B88F-FEA50A787887}.Release|x86.Build.0 = Release|x86
+		{B2811E7C-362E-447E-889F-4FC4ACE40ABD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B2811E7C-362E-447E-889F-4FC4ACE40ABD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B2811E7C-362E-447E-889F-4FC4ACE40ABD}.Debug|ARM.ActiveCfg = Debug|ARM
+		{B2811E7C-362E-447E-889F-4FC4ACE40ABD}.Debug|ARM.Build.0 = Debug|ARM
+		{B2811E7C-362E-447E-889F-4FC4ACE40ABD}.Debug|x64.ActiveCfg = Debug|x64
+		{B2811E7C-362E-447E-889F-4FC4ACE40ABD}.Debug|x64.Build.0 = Debug|x64
+		{B2811E7C-362E-447E-889F-4FC4ACE40ABD}.Debug|x86.ActiveCfg = Debug|x86
+		{B2811E7C-362E-447E-889F-4FC4ACE40ABD}.Debug|x86.Build.0 = Debug|x86
+		{B2811E7C-362E-447E-889F-4FC4ACE40ABD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B2811E7C-362E-447E-889F-4FC4ACE40ABD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B2811E7C-362E-447E-889F-4FC4ACE40ABD}.Release|ARM.ActiveCfg = Release|ARM
+		{B2811E7C-362E-447E-889F-4FC4ACE40ABD}.Release|ARM.Build.0 = Release|ARM
+		{B2811E7C-362E-447E-889F-4FC4ACE40ABD}.Release|x64.ActiveCfg = Release|x64
+		{B2811E7C-362E-447E-889F-4FC4ACE40ABD}.Release|x64.Build.0 = Release|x64
+		{B2811E7C-362E-447E-889F-4FC4ACE40ABD}.Release|x86.ActiveCfg = Release|x86
+		{B2811E7C-362E-447E-889F-4FC4ACE40ABD}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -93,6 +129,7 @@ Global
 		{2A50419D-14AA-454F-BC31-A6546F3FC039} = {C77BC0A8-5F43-42AC-A81B-77DE483C3791}
 		{C863F104-5423-4093-A32C-02B26C5ED68A} = {C77BC0A8-5F43-42AC-A81B-77DE483C3791}
 		{76AD71F3-CEE3-4714-B88F-FEA50A787887} = {C77BC0A8-5F43-42AC-A81B-77DE483C3791}
+		{B2811E7C-362E-447E-889F-4FC4ACE40ABD} = {C77BC0A8-5F43-42AC-A81B-77DE483C3791}
 	EndGlobalSection
 	GlobalSection(CodealikeProperties) = postSolution
 		SolutionGuid = 0d00977f-b839-4cdd-b025-867743d3d0cb

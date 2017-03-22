@@ -20,6 +20,15 @@
                 <TextBlock Text="{Binding Converter={StaticResource TimeSpanFormatConverter}}" />
             </Grid>
         </DataTemplate>
+        <DataTemplate x:Key="TimeSpanToTimeTemplate">
+            <Grid>
+                <Grid.Resources>
+                    <ctimeConverter:TimeSpanToTimeStringConverter x:Key="TimeSpanToTimeStringConverter" />
+                </Grid.Resources>
+
+                <TextBlock Text="{Binding Converter={StaticResource TimeSpanToTimeStringConverter}}" />
+            </Grid>
+        </DataTemplate>
         <ctimeConverter:EnumToBooleanConverter x:Key="EnumToBooleanConverter" />
         <ctimeConverter:FeatureToVisibilityConverter x:Key="TerminalEnabledToVisibilityConverter" FeatureName="Terminal" />
     </Page.Resources>
@@ -50,6 +59,19 @@
                               ItemsSource="{x:Bind ViewModel.BreakTimes, Mode=OneWay}"
                               SelectedItem="{Binding SelectedBreakTime, Mode=TwoWay}"
                               ItemTemplate="{StaticResource TimeSpanDataTemplate}" />
+                </uwCoreControls:SettingsItem>
+                <uwCoreControls:SettingsItem x:Uid="BreakTimeAreaSettingsItem" Description="~Pausenzeitraum">
+                    <StackPanel Orientation="Horizontal">
+                        <ComboBox Width="130"
+                                  ItemsSource="{x:Bind ViewModel.BreakTimeAreas, Mode=OneWay}"
+                                  SelectedItem="{Binding BreakTimeBegin, Mode=TwoWay}"
+                                  ItemTemplate="{StaticResource TimeSpanToTimeTemplate}" />
+                        <TextBlock Text="bis" VerticalAlignment="Center" x:Uid="UntilTextBlock" Margin="4, 0"  />
+                        <ComboBox Width="130"
+                                  ItemsSource="{x:Bind ViewModel.BreakTimeAreas, Mode=OneWay}"
+                                  SelectedItem="{Binding BreakTimeEnd, Mode=TwoWay}"
+                                  ItemTemplate="{StaticResource TimeSpanToTimeTemplate}" />
+                    </StackPanel>
                 </uwCoreControls:SettingsItem>
             </uwCoreControls:SettingsGroup>
             <uwCoreControls:SettingsGroup x:Uid="WorkDaysSettingsGroup" Header="~Arbeitstage">

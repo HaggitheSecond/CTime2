@@ -3,8 +3,11 @@
     "FontAwesome.UWP": "4.7.0.9",
     "Microsoft.NETCore.UniversalWindowsPlatform": "5.2.2",
     "Microsoft.Services.Store.SDK": "10.1610.31001",
+    "Microsoft.Toolkit.Uwp.Notifications": "1.3.1",
+    "Microsoft.Toolkit.Uwp.Services": "1.3.1",
+    "Microsoft.Toolkit.Uwp.UI.Controls": "1.4.0-dev00174",
     "Telerik.UI.for.UniversalWindowsPlatform": "1.0.0.1",
-    "UwCore": "0.1.85",
+    "UwCore": "0.1.88",
     "WindowsStateTriggers": "1.1.0"
   },
   "frameworks": {

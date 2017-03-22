@@ -314,9 +314,6 @@ Diese App wird eventuell nicht komplett funktionieren.</value>
   <data name="Loading.LoadCharts" xml:space="preserve">
     <value>Lade Diagram...</value>
   </data>
-  <data name="Statistics.WorkTimeDataPointFormat" xml:space="preserve">
-    <value>{0} h {1} m</value>
-  </data>
   <data name="StatisticItemHasDetailsIcon.[using:Windows.UI.Xaml.Controls]ToolTipService.ToolTip" xml:space="preserve">
     <value>Zu dieser Statistik gibt es ein Diagram.</value>
   </data>
@@ -382,18 +379,6 @@ Diese App wird eventuell nicht komplett funktionieren.</value>
   </data>
   <data name="Loading.CurrentTime" xml:space="preserve">
     <value>Lade Zeit...</value>
-  </data>
-  <data name="UpdateToNewCTimeApiContent1Run.Text" xml:space="preserve">
-    <value>Diese App verwendet nun die neue c-time API.</value>
-  </data>
-  <data name="UpdateToNewCTimeApiContent2Run.Text" xml:space="preserve">
-    <value>Dadurch ist die Anmeldung sichere geworden, das Passwort wird jetzt nicht mehr an den Server übertragen.</value>
-  </data>
-  <data name="UpdateToNewCTimeApiContent3Run.Text" xml:space="preserve">
-    <value>Außerdem wird die Anwesenheitsliste nun viel schneller geladen.</value>
-  </data>
-  <data name="UpdateToNewCTimeApiHeaderRun.Text" xml:space="preserve">
-    <value>Update auf die neue c-time API!</value>
   </data>
   <data name="MyTimes.TitleFormat" xml:space="preserve">
     <value>Meine Zeiten vom {0:d} bis {1:d}</value>
@@ -480,39 +465,6 @@ Die Firmen-ID sieht in etwa so aus: A1B2C3D4-A1B2-A1B2-A1B2-A1B2C3D4F5G6</value>
   <data name="TerminalSettingsGroup.Header" xml:space="preserve">
     <value>Terminal</value>
   </data>
-  <data name="AttendanceListGroupsContent1Run.Text" xml:space="preserve">
-    <value>Um die Übersicht zu verbessern, kann man in der Anwesenheitsliste nun eigene Gruppen von Mitarbeitern erstellen.</value>
-  </data>
-  <data name="AttendanceListGroupsHeaderRun.Text" xml:space="preserve">
-    <value>Eigene Mitarbeitergruppen!</value>
-  </data>
-  <data name="DatesContent1Run.Text" xml:space="preserve">
-    <value>Im Bereich der Zeiten und in den Statistiken wird sich das Start- und Enddatum jetzt gemerkt.</value>
-  </data>
-  <data name="DatesHeaderRun.Text" xml:space="preserve">
-    <value>Start- und Enddatum</value>
-  </data>
-  <data name="ShareContent1Run.Text" xml:space="preserve">
-    <value>Einige Infos aus dieser App kann man jetzt mit anderen Apps teilen.</value>
-  </data>
-  <data name="ShareContent2Run.Text" xml:space="preserve">
-    <value>Dadurch kann man zum Beispiel seine Zeiten per E-Mail versenden.</value>
-  </data>
-  <data name="ShareHeaderRun.Text" xml:space="preserve">
-    <value>Teilen!</value>
-  </data>
-  <data name="CrashContent1Run.Text" xml:space="preserve">
-    <value>Auf einigen Computern ist diese App beim Start direkt abgestürzt. Das sollte jetzt behoben sein.</value>
-  </data>
-  <data name="CrashHeaderRun.Text" xml:space="preserve">
-    <value>Absturz beim Starten</value>
-  </data>
-  <data name="PatchNotesAgainContent1Run.Text" xml:space="preserve">
-    <value>Im Bereich "Über" kann man sich diese Updatehinweise erneut anzeigen lassen.</value>
-  </data>
-  <data name="PatchNotesAgainHeaderRun.Text" xml:space="preserve">
-    <value>Updatehinweis erneut ansehen</value>
-  </data>
   <data name="AnalyticsSettingsGroup.Header" xml:space="preserve">
     <value>Analytik</value>
   </data>
@@ -579,7 +531,7 @@ Diese Daten werden lediglich zu Kontaktzwecken verwendet und an keine Dritten we
     <value>Datenschutzerklärung</value>
   </data>
   <data name="PrivacyPolicyUrl" xml:space="preserve">
-    <value>https://xemio.net/c-time/privacy%20policy/de-DE.html</value>
+    <value>https://github.com/haefele/CTime2/blob/master/privacy%20policy/de-DE.md</value>
   </data>
   <data name="SocialMediaSettingsGroup.Header" xml:space="preserve">
     <value>Soziale Medien</value>
@@ -621,39 +573,6 @@ Diese Daten werden lediglich zu Kontaktzwecken verwendet und an keine Dritten we
   <data name="ZoomAppBarButton.Label" xml:space="preserve">
     <value>Zoomen</value>
   </data>
-  <data name="ExtendedAttendanceListContent1Run.Text" xml:space="preserve">
-    <value>Die Anwesenheitsliste zeigt nun an, wie jemand ein- oder ausgestempelt ist.</value>
-  </data>
-  <data name="ExtendedAttendanceListContent2Run.Text" xml:space="preserve">
-    <value>Ist also jemand über Home-Office eingestempelt, kann man das nun auch erkennen.</value>
-  </data>
-  <data name="ExtendedAttendanceListContent3Run.Text" xml:space="preserve">
-    <value>Außerdem gibt es jetzt eine Suchfunktion in der Anwesenheitsliste.</value>
-  </data>
-  <data name="ExtendedAttendanceListHeaderRun.Text" xml:space="preserve">
-    <value>Anwesenheitsliste erweitert</value>
-  </data>
-  <data name="ReworkedAboutAndSettingsContent1Run.Text" xml:space="preserve">
-    <value>Der Über Bereich wurde auch komplett überarbeitet.</value>
-  </data>
-  <data name="ReworkedAboutAndSettingsContent2Run.Text" xml:space="preserve">
-    <value>Dort gibt es jetzt auch die Möglichkeit Feedback über den Feedback Hub zu geben.</value>
-  </data>
-  <data name="ReworkedAboutAndSettingsContent3Run.Text" xml:space="preserve">
-    <value>In den Einstellungen gibt es eine neue Einstellung zur Analytik.</value>
-  </data>
-  <data name="ReworkedAboutAndSettingsHeaderRun.Text" xml:space="preserve">
-    <value>Über und Einstellungen überarbeitet</value>
-  </data>
-  <data name="ReworkedDiagramsContent1Run.Text" xml:space="preserve">
-    <value>Die Diagramme bei den Statistiken wurden komplett überarbeitet.</value>
-  </data>
-  <data name="ReworkedDiagramsContent2Run.Text" xml:space="preserve">
-    <value>Sie sehen jetzt wesentlich moderner aus und haben auch einige neue Funktionen.</value>
-  </data>
-  <data name="ReworkedDiagramsHeaderRun.Text" xml:space="preserve">
-    <value>Neue Diagramme</value>
-  </data>
   <data name="FridayCheckBox.Content" xml:space="preserve">
     <value>Freitag</value>
   </data>
@@ -689,5 +608,14 @@ Diese Daten werden lediglich zu Kontaktzwecken verwendet und an keine Dritten we
   </data>
   <data name="BreakTimeTextBlock.Text" xml:space="preserve">
     <value>Pause:</value>
+  </data>
+  <data name="BreakTimeAreaSettingsItem.Description" xml:space="preserve">
+    <value>Pausenzeitraum</value>
+  </data>
+  <data name="UntilTextBlock.Text" xml:space="preserve">
+    <value>bis</value>
+  </data>
+  <data name="UpdateNotesFileName" xml:space="preserve">
+    <value>German</value>
   </data>
 </root>

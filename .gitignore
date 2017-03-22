@@ -198,3 +198,6 @@ FakesAssemblies/
 
 # NuGet
 project.lock.json
+
+# Cake Build Tools
+/scripts/tools/
